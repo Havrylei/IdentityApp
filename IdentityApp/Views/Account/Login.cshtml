@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<h3>Login</h3>
+
+<div class="col-lg-3">
+    <form action="/Account/Login" method="POST">
+        <div class="form-group">
+            <label>Login:</label>
+            <input type="text" class="form-control" name="Login" />
+        </div>
+
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" class="form-control" name="Password" />
+        </div>
+
+        <div class="form-group">
+            <label>Remember me?</label>
+            <input type="checkbox" class="form-control" name="RememberMe" />
+        </div>
+
+            <input type="submit" class="btn btn-primary" value="Send" />
+    </form>
+</div>

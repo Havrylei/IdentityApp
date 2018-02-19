@@ -1,0 +1,11 @@
+C:\Users\Petro\source\repos\IdentityApp\IdentityApp\bin\Debug\netcoreapp2.0\IdentityApp.deps.json
+C:\Users\Petro\source\repos\IdentityApp\IdentityApp\bin\Debug\netcoreapp2.0\IdentityApp.runtimeconfig.json
+C:\Users\Petro\source\repos\IdentityApp\IdentityApp\bin\Debug\netcoreapp2.0\IdentityApp.runtimeconfig.dev.json
+C:\Users\Petro\source\repos\IdentityApp\IdentityApp\bin\Debug\netcoreapp2.0\IdentityApp.dll
+C:\Users\Petro\source\repos\IdentityApp\IdentityApp\bin\Debug\netcoreapp2.0\IdentityApp.pdb
+C:\Users\Petro\source\repos\IdentityApp\IdentityApp\obj\Debug\netcoreapp2.0\IdentityApp.csprojResolveAssemblyReference.cache
+C:\Users\Petro\source\repos\IdentityApp\IdentityApp\obj\Debug\netcoreapp2.0\IdentityApp.csproj.CoreCompileInputs.cache
+C:\Users\Petro\source\repos\IdentityApp\IdentityApp\obj\Debug\netcoreapp2.0\IdentityApp.AssemblyInfoInputs.cache
+C:\Users\Petro\source\repos\IdentityApp\IdentityApp\obj\Debug\netcoreapp2.0\IdentityApp.AssemblyInfo.cs
+C:\Users\Petro\source\repos\IdentityApp\IdentityApp\obj\Debug\netcoreapp2.0\IdentityApp.dll
+C:\Users\Petro\source\repos\IdentityApp\IdentityApp\obj\Debug\netcoreapp2.0\IdentityApp.pdb
