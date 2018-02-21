@@ -3,6 +3,7 @@ using IdentityApp.DTO;
 using IdentityApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace IdentityApp.Controllers
 {
@@ -18,15 +19,64 @@ namespace IdentityApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
-        {
-            return Content(User.Identity.Name);
-        }
+        public async Task<IActionResult> Index() => View(await _manager.Users.ToListAsync());
+        
+        [HttpGet]
+        public IActionResult Register() => View();
 
         [HttpGet]
-        public IActionResult Register()
+        public IActionResult Login() => View();
+
+        [HttpGet]
+        public IActionResult ChangePassword(string id) => View((object) id);
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
         {
-            return View();
+            User user = await _manager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            EditUserDto dto = new EditUserDto
+            {
+                ID = user.Id,
+                Email = user.Email,
+                Name = user.Name
+            };
+
+            return View(dto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditUserDto dto)
+        {
+            if (!ModelState.IsValid) return View(dto);
+            
+            User user = await _manager.FindByIdAsync(dto.ID);
+
+            if (user == null) return View(dto);
+            
+            user.Email = dto.Email;
+            user.Name = dto.Name;
+
+            var result = await _manager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "Account");
+            }
+            else
+            {
+                foreach(var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return View(dto);
         }
 
         [HttpPost]
@@ -60,13 +110,7 @@ namespace IdentityApp.Controllers
 
             return View(dto);
         }
-
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
-
+                
         [HttpPost]
         public async Task<IActionResult> Login(LoginUserDto dto)
         {
@@ -87,12 +131,48 @@ namespace IdentityApp.Controllers
             return View(dto);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordDto dto)
+        {
+            if (!ModelState.IsValid) return View(dto);
+
+            User user = await _manager.FindByIdAsync(dto.ID);
+
+            if (user == null) return View(dto);
+
+            var result = await _manager.ChangePasswordAsync(user, dto.OldPassword, dto.NewPassword);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach(var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return View(dto);
+        }
+
         [HttpDelete]
         public async Task<IActionResult> LogOut()
         {
             await _sign.SignOutAsync();
 
             return RedirectToAction("Login", "Account");
+        }       
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(string id)
+        {
+            User user = await _manager.FindByIdAsync(id);
+
+            if (user != null) await _manager.DeleteAsync(user);
+
+            return RedirectToAction("Index");
         }
     }
 }
